@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:minWidth="200dp"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:paddingTop="30dp"
+    android:paddingBottom="30dp"
+    tools:context=".activity.AddRule">
+
+    <EditText
+        android:id="@+id/originText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/bg_white_solid"
+        android:hint="@string/addmethod_origintext"
+        android:minHeight="45dp"
+        android:paddingStart="10dp"
+        android:textSize="18sp"
+        tools:ignore="Autofill,RtlSymmetry,TextFields" />
+
+    <EditText
+        android:id="@+id/newText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/bg_white_solid"
+        android:hint="@string/addmethod_newtext"
+        android:minHeight="45dp"
+        android:paddingStart="10dp"
+        android:textSize="18sp"
+        tools:ignore="Autofill,RtlSymmetry,TextFields" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_gray_solid"
+            android:text="@string/addmethod_save"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_gray_solid"
+            android:text="@string/addmethod_delete"
+            tools:ignore="ButtonStyle" />
+
+    </LinearLayout>
+
+</LinearLayout>
