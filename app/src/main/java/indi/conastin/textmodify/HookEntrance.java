@@ -12,6 +12,7 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XSharedPreferences;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 import indi.conastin.textmodify.databse.RuleInfo;
@@ -42,6 +43,7 @@ public class HookEntrance implements IXposedHookLoadPackage {
                 allRules.addAll(loadRuleList(globalSps));
 //                Log.d("TextModify", "【HookEntrance】 | allRules: " + allRules.toString());
                 allRules.addAll(loadRuleList(packageSps));
+                XposedBridge.log("【TextModify】 | pkgName: " + lpparam.packageName + " | allRules: " + allRules.toString());
 //                Log.d("TextModify", "【HookEntrance】 | allRules: " + allRules.toString());
                 // hook text TextView.class method
                 XC_MethodHook textviewHook = new XC_MethodHook() {
