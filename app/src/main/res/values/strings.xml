@@ -44,4 +44,8 @@
     <string name="about_project">关于此项目</string>
     <string name="about_project_coolapk">\t作者酷安：Conastin</string>
     <string name="about_project_gitee">\tGitee：https://gitee.com/conastin/TextModify</string>
+    <string name="main_copyright">版权声明</string>
+    <string name="main_copyright_p1">本软件为开源免费软件</string>
+    <string name="main_copyright_p2">仅供学习交流使用</string>
+    <string name="main_copyright_p3">切勿倒卖或进行违法犯罪活动</string>
 </resources>
