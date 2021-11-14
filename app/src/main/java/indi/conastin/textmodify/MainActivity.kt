@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         // 检查root权限
-//        Runtime.getRuntime().exec("su")
+        Runtime.getRuntime().exec("su")
         // 检查xposed激活状态
         if (checkModelActive()) {
             binding.mainCheckXposedActiveBackground.setBackgroundResource(R.drawable.bg_green_solid)

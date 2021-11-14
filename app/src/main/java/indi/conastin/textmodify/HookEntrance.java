@@ -51,26 +51,26 @@ public class HookEntrance implements IXposedHookLoadPackage {
                         if (param.args[0] != null) {
                             if (param.args[0] instanceof String) {
                                 String finalText = param.args[0].toString();
-//                                        Log.d("TextModify", "【HookEntrance】 | String finalText init: " + finalText);
+//                                Log.d("TextModify", "【HookEntrance】 | String finalText init: " + finalText);
                                 for (int i = 0; i < allRules.size(); i++) {
                                     if (param.args[0].toString().contains(allRules.get(i).getOriginText())) {
                                         finalText = finalText.replace(allRules.get(i).getOriginText(), allRules.get(i).getNewText());
-//                                                Log.d("TextModify", "【HookEntrance】 | origin: " + allRules.get(i).getOriginText() + " | new: " + allRules.get(i).getNewText() + " | finalText: " + finalText);
+//                                        Log.d("TextModify", "【HookEntrance】 | origin: " + allRules.get(i).getOriginText() + " | new: " + allRules.get(i).getNewText() + " | finalText: " + finalText);
                                     }
                                 }
                                 param.args[0] = finalText;
-//                                        Log.d("TextModify", "【HookEntrance】 | 处理String字符串: " + param.args[0] + " | finalText: " + finalText);
+//                                Log.d("TextModify", "【HookEntrance】 | 处理String字符串: " + param.args[0] + " | finalText: " + finalText);
                             } else if (param.args[0] instanceof SpannableString) {
                                 String finalText = param.args[0].toString();
-//                                        Log.d("TextModify", "【HookEntrance】 | SpannableString finalText init: " + finalText.toString());
+//                                Log.d("TextModify", "【HookEntrance】 | SpannableString finalText init: " + finalText.toString());
                                 for (int i = 0; i < allRules.size(); i++) {
                                     if (param.args[0].toString().contains(allRules.get(i).getOriginText())) {
                                         finalText = finalText.replace(allRules.get(i).getOriginText(), allRules.get(i).getNewText());
-//                                                Log.d("TextModify", "【HookEntrance】 | origin: " + allRules.get(i).getOriginText() + " | new: " + allRules.get(i).getNewText() + " | finalText: " + finalText);
+//                                        Log.d("TextModify", "【HookEntrance】 | origin: " + allRules.get(i).getOriginText() + " | new: " + allRules.get(i).getNewText() + " | finalText: " + finalText);
                                     }
                                 }
                                 param.args[0] = new SpannableString(finalText);
-//                                        Log.d("TextModify", "【HookEntrance】 | 处理SpannableString字符串:  " + param.args[0] + " | finalText: " + "cnm");
+//                                Log.d("TextModify", "【HookEntrance】 | 处理SpannableString字符串:  " + param.args[0] + " | finalText: " + "cnm");
                             } else if (param.args[0] instanceof SpannableStringBuilder) {
                                 SpannableStringBuilder finalText = (SpannableStringBuilder) param.args[0];
 //                                Log.d("TextModify", "【HookEntrance】 | SpannableStringBuilder finalText init: " + finalText.toString());
@@ -78,31 +78,35 @@ public class HookEntrance implements IXposedHookLoadPackage {
                                     if (param.args[0].toString().contains(allRules.get(i).getOriginText())) {
                                         // 获取起始位置
                                         int start = param.args[0].toString().indexOf(allRules.get(i).getOriginText());
+//                                        Log.d("TextModify", "【HookEntrance】 | start: " + start + " | originText: " + allRules.get(i).getOriginText());
+//                                        Log.d("TextModify", "【HookEntrance】 | 比较： " + allRules.get(i).getOriginText().length() + " | 1: " + allRules.get(i).getNewText().length());
                                         // 计算替换文字大小
                                         if (allRules.get(i).getOriginText().length() == allRules.get(i).getNewText().length()) {
                                             // 相等
                                             finalText.replace(start, allRules.get(i).getOriginText().length(), allRules.get(i).getNewText());
                                         } else if (allRules.get(i).getOriginText().length() > allRules.get(i).getNewText().length()) {
                                             // 删减了
-                                            finalText.replace(start, allRules.get(i).getNewText().length(), allRules.get(i).getNewText());
-                                            finalText.delete(start + allRules.get(i).getNewText().length(), start + allRules.get(i).getOriginText().length() - allRules.get(i).getOriginText().length());
+                                            finalText.replace(start, allRules.get(i).getNewText().length() + 1, allRules.get(i).getNewText());
+//                                            Log.d("TextModify", "【HookEntrance】 | 删减了的finalText: " + finalText + " | method: " + (start + allRules.get(i).getNewText().length()) + ", " + (start + allRules.get(i).getOriginText().length() - allRules.get(i).getOriginText().length()));
+                                            finalText.delete(start + allRules.get(i).getNewText().length(), start + allRules.get(i).getOriginText().length() - allRules.get(i).getNewText().length() + 1);
                                         } else {
                                             // 增加了
-                                            finalText.replace(start, allRules.get(i).getOriginText().length(), allRules.get(i).getNewText().subSequence(0, allRules.get(i).getOriginText().length()));
+                                            finalText.replace(start, allRules.get(i).getOriginText().length() + 1, allRules.get(i).getNewText().subSequence(0, allRules.get(i).getOriginText().length()));
+//                                            Log.d("TextModify", "【HookEntrance】 | 增加了：" + finalText + " | method: " + allRules.get(i).getNewText().subSequence(0, allRules.get(i).getOriginText().length()));
                                             finalText.insert(start + allRules.get(i).getOriginText().length(), allRules.get(i).getNewText().subSequence(allRules.get(i).getOriginText().length(), allRules.get(i).getNewText().length()));
                                         }
-//                                                Log.d("TextModify", "【HookEntrance】 | origin: " + allRules.get(i).getOriginText() + " | new: " + allRules.get(i).getNewText() + " | finalText: " + finalText);
+//                                        Log.d("TextModify", "【HookEntrance】 | origin: " + allRules.get(i).getOriginText() + " | new: " + allRules.get(i).getNewText() + " | finalText: " + finalText);
                                     }
                                 }
                                 param.args[0] = finalText;
 //                                Log.d("TextModify", "【HookEntrance】 | 处理SpannableStringBuilder字符串:  " + param.args[0] + " | finalText: " + finalText);
                             } else if (param.args[0] instanceof StringBuffer) {
                                 String finalText = param.args[0].toString();
-//                                        Log.d("TextModify", "【HookEntrance】 | SpannableString finalText init: " + finalText.toString());
+//                                Log.d("TextModify", "【HookEntrance】 | SpannableString finalText init: " + finalText.toString());
                                 for (int i = 0; i < allRules.size(); i++) {
                                     if (param.args[0].toString().contains(allRules.get(i).getOriginText())) {
                                         finalText = finalText.replace(allRules.get(i).getOriginText(), allRules.get(i).getNewText());
-//                                                Log.d("TextModify", "【HookEntrance】 | origin: " + allRules.get(i).getOriginText() + " | new: " + allRules.get(i).getNewText() + " | finalText: " + finalText);
+//                                        Log.d("TextModify", "【HookEntrance】 | origin: " + allRules.get(i).getOriginText() + " | new: " + allRules.get(i).getNewText() + " | finalText: " + finalText);
                                     }
                                 }
                                 param.args[0] = new StringBuffer(finalText);
